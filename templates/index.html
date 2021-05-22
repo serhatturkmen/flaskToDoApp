@@ -1,0 +1,59 @@
+{%extends "layout.html"%}
+{% block body%}
+    <div class="container" style="margin-top: 30px;">
+        <h1>ToDo List</h1>
+        <hr>
+        <form action="/add" method="POST">
+            <div class="form-gorup">
+                <label for="forlabel">Başlığı giriniz</label>
+                <input type="text" name="title" class="form-control" id="forlabel">
+            </div>
+            <div class="form-gorup">
+                <label for="forlabel2">İçeriği giriniz</label>
+                <textarea id="forlabel2" class="form-control" name="content"></textarea>
+            </div>
+            <br>
+            <button type="submit" class="btn btn-danger">Ekle</button>
+        </form>
+        <br>
+        {%if todos==[]%}
+        <div class="alert alert-danger">ToDo içeriği Bulunamamaktadır.</div>
+        {%else%}
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">id</th>
+                <th scope="col">Başlık</th>
+                <th scope="col">İçerik</th>
+                <th scope="col">Durumu</th>
+                <th scope="col">Tamamlandı</th>
+                <th scope="col">Sil</th>
+              </tr>
+            </thead>
+            <tbody>
+                {%for todo in todos%}
+                    <tr>
+                        <th scope="row">{{todo.id}}</th>
+                        <td>
+                            <a href="detail/{{todo.id}}">
+                                {{todo.title}}
+                            </a>
+                        </td>
+                        <td>
+                            {{todo.content}}
+                        </td>
+                        {%if todo.complete == False%}
+                            <td>Tamamlanmadı</td>
+                            <td><a href="complete/{{todo.id}}" class="btn btn-success">Yaptım</a></td>
+                        {%else%}
+                            <td>Tamamlandı</td>
+                            <td><a href="complete/{{todo.id}}" class="btn btn-danger">Yapmadım</a></td>
+                        {%endif%}
+                        <td><a href="delete/{{todo.id}}" class="btn btn-danger">Sil</a></td>
+                    </tr>
+                {%endfor%}
+            </tbody>
+        </table>
+        {%endif%}
+    </div>
+{% endblock%}

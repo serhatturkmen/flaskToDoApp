@@ -1,0 +1,18 @@
+{%extends "layout.html"%}
+{% block body%}
+    <div class="container" style="margin-top: 50px;">
+        <h1>ToDo Detail</h1>
+        <hr>
+        <div class="alert alert-info">
+            <strong>{{todo.title}}</strong> <br>
+            {{todo.content}}
+        </div>
+        {% if todo.complete == False %}
+            <div class="alert alert-danger">Tamamlanmadı</div>
+        {%else%}
+            <div class="alert alert-success">Tamamlandı</div>
+        {%endif%}
+        <hr>
+        <a class="btn btn-danger" href="{{url_for('index')}}">Geri Dön</a>
+    </div>
+{% endblock%}
